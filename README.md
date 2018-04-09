@@ -1,4 +1,4 @@
-# Autoencoder-for-MNIST
+# Deep nerual network-for-MNIST
 ---
 　
 #### 一、概述
