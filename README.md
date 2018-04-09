@@ -3,7 +3,8 @@
 　
 #### 一、概述
 ```
-本程式為使用python語法。用BPN來分類MNIST資料集，並增加層數來觀察分類效果。(學習函數為：Sigmoid，調整權重方法為：BPNN，使用mini batch)
+本程式為使用python語法。用BPN來分類MNIST資料集，並增加層數來觀察分類效果。
+(學習函數為：Sigmoid，調整權重方法為：BPNN，使用mini batch)
 ```
 
 #### 二、資料集：
