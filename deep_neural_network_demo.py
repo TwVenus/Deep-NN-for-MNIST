@@ -3,6 +3,7 @@ import numpy as np
 from keras.datasets import mnist
 from keras.utils import np_utils
 import time
+
 class Readfile(object):
     def __init__(self):
         (X_train_image, y_train_label), (X_test_image, y_test_label) = mnist.load_data()
@@ -31,19 +32,19 @@ class BPNN(object):
         self.input_node = self.feature_list.shape[1]
         self.output_node = self.output_list_OHE.shape[1]
         self.hidden1_node = 200
-        self.hidden2_node = 100
-        self.hidden3_node = 50
+        self.hidden2_node = 200
+        self.hidden3_node = 200
 
         # bias
-        self.bias_weight_h1 = np.load("bias0_weight.npy")
-        self.bias_weight_h2 = np.load("bias1_weight.npy")
-        self.bias_weight_h3 = np.load("bias2_weight.npy")
+        self.bias_weight_h1 = np.random.uniform(-1.0, 1.0, size=self.hidden1_node)
+        self.bias_weight_h2 = np.random.uniform(-1.0, 1.0, size=self.hidden2_node)
+        self.bias_weight_h3 = np.random.uniform(-1.0, 1.0, size=self.hidden3_node)
         self.bias_weight_o = np.random.uniform(-1.0, 1.0, size=self.output_node)
 
         # weight
-        self.weight_list_h1 = np.load("hidden0_weight.npy")
-        self.weight_list_h2 = np.load("hidden1_weight.npy")
-        self.weight_list_h3 = np.load("hidden2_weight.npy")
+        self.weight_list_h1 = np.random.uniform(-1.0, 1.0, size=(self.input_node, self.hidden1_node))
+        self.weight_list_h2 = np.random.uniform(-1.0, 1.0, size=(self.hidden1_node, self.hidden2_node))
+        self.weight_list_h3 = np.random.uniform(-1.0, 1.0, size=(self.hidden2_node, self.hidden3_node))
         self.weight_list_o = np.random.uniform(-1.0, 1.0, size=(self.hidden3_node, self.output_node))
 
         self.pre_delta_o = 0
@@ -114,14 +115,14 @@ class BPNN(object):
             if(_iter % 5 == 0):
                 print("Epoch = {} , train accuracy = {:.2f}".format(_iter, self.accuracy))
 
-            if (self.accuracy >= 99):
+            if (self.accuracy >= 98):
                 print("Epoch = {} , train accuracy = {:.2f}".format(_iter, self.accuracy))
                 break
 
 if __name__ == "__main__":
     start_time = time.time()
     dataset = Readfile()
-    bpnn = BPNN(dataset, learning_rate=0.002, batch_size=300, epoch=5000, momentum=0.99)
+    bpnn = BPNN(dataset, learning_rate=0.002, batch_size=300, epoch=500, momentum=0.99)
     bpnn.train()
     bpnn.predict(dataset.test_feature_list, dataset.test_output_list)
     end_time = time.time()
